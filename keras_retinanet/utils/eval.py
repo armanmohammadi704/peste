@@ -229,7 +229,9 @@ def evaluate(
         # compute false positives and true positives
         false_positives = np.cumsum(false_positives)
         true_positives  = np.cumsum(true_positives)
-
+        tp=max(true_positives)
+        fp=max(false_positives)
+        fn=num_annotations-tp
         # compute recall and precision
         recall    = true_positives / num_annotations
         precision = true_positives / np.maximum(true_positives + false_positives, np.finfo(np.float64).eps)
@@ -240,8 +242,8 @@ def evaluate(
 
         # inference time
         inference_time = np.sum(all_inferences) / generator.size()
-        print('Recall ',label+1,': ', max(recall))
-        print('Precision ',label+1,': ', max(precision))
-        print('F1 ',label+1,': ',(2*max(recall)*max(precision))/(max(recall)+max(precision)))
+        print('Recall ',label+1,': ', tp/num_annotations)
+        print('Precision ',label+1,': ', tp/(tp+fp))
+        print('F1 ',label+1,': ',(2*(tp/num_annotations)*(tp/(tp+fp)))/((tp/num_annotations)+(tp/(tp+fp))))
     #return average_precisions, inference_time
     return true_positives, false_positives,num_annotations,recall,precision
