@@ -240,5 +240,7 @@ def evaluate(
 
         # inference time
         inference_time = np.sum(all_inferences) / generator.size()
-
+    print('Recall: ', max(recall))
+    print('Precision: ', max(precision))
+    print('F1: ,(2*max(recall)*max(precision))/(max(recall)+max(precision)))
     return average_precisions, inference_time
