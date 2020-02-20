@@ -243,4 +243,5 @@ def evaluate(
         print('Recall ',label+1,': ', max(recall))
         print('Precision ',label+1,': ', max(precision))
         print('F1 ',label+1,': ',(2*max(recall)*max(precision))/(max(recall)+max(precision)))
-    return average_precisions, inference_time
+    #return average_precisions, inference_time
+    return true_positives, false_positives
